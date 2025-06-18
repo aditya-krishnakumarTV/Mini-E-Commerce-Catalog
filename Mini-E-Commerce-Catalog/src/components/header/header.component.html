@@ -1,0 +1,40 @@
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-blue-600 cursor-pointer" 
+                    (click)="navigateHome()">
+                  ShopZone
+                </h1>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <button 
+                    class="text-gray-700 hover:text-blue-600 font-medium"
+                    routerLink="/products"
+                    routerLinkActive="text-blue-600">
+                    Products
+                </button>
+
+                <button 
+                    class="relative flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    routerLink="/cart">
+
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 4.5M7 13l-1.5 4.5M9 19.5h1.5m0 0h1.5m-1.5 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 013 0m-4.5-4.5a1.5 1.5 0 103 0m-3 0a1.5 1.5 0 103 0" />
+                    </svg>
+
+                    <span>Cart</span>
+
+                    @if ((cartCount$ | async)! > 0) {
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+                            {{ cartCount$ | async }}
+                        </span>
+                    }
+
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
