@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { AsyncPipe } from "@angular/common";
 
@@ -15,7 +15,9 @@ export class HeaderComponent {
     private cartService = inject(CartService);
     private router = inject(Router);
 
-    cartCount$ = this.cartService.cartCount$;
+    cartCount$ = computed(() => {
+        return this.cartService.cartCount$;
+    });
 
     navigateHome(): void {
         this.router.navigate(['/products']);

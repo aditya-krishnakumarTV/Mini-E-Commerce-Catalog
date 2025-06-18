@@ -11,9 +11,9 @@ export class ProductService {
     private productsSubject = new BehaviorSubject<Product[]>(this.getMockProducts());
     products$ = this.productsSubject.asObservable();
 
-    getProducts(): Observable<Product[]> {
-        return this.products$;
-    }
+    // getProducts(): Observable<Product[]> {
+    //     return this.products$;
+    // }
 
     getProductById(id: number): Observable<Product | undefined> {
         return this.products$.pipe(
