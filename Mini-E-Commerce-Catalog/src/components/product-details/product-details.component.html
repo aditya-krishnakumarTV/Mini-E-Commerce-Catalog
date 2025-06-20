@@ -1,0 +1,97 @@
+<div class="container mx-auto px-4 py-8">
+    <button 
+        (click)="goBack()"
+        class="flex items-center text-blue-600 hover:text-blue-800 mb-6">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+                Back to Products
+    </button>
+
+    <!-- @if (product$ | async as product) {  -->
+    <!-- as not supported in Angular 18 -->
+        <div *ngIf="product$ | async as product" class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+            
+                <!-- Product Image -->
+                <div class="aspect-square">
+                    <img 
+                        [src]="product.image" 
+                        [alt]="product.name"
+                        class="w-full h-full object-cover rounded-lg">
+                </div> 
+            
+                <!-- Product Information -->
+                <div class="flex flex-col">
+                    <div class="mb-4">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-2">
+                            {{ product.category }}
+                        </span>
+                    
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                            {{ product.name }}
+                        </h1>
+                    
+                        <div class="flex items-center mb-4">
+                            <div class="flex items-center">
+                                <span class="text-yellow-400 text-lg">★</span>
+                                <span class="text-gray-600 ml-1">{{ product.rating }} / 5</span>
+                            </div>
+
+                            <span [class]="product.inStock ? 'text-green-600' : 'text-red-600'" 
+                                class="ml-4 font-medium">
+                                    {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+                            </span>
+                        </div>
+                    
+                    </div>   
+                
+                    <div class="mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">Description</h2>
+
+                        <p class="text-gray-700 leading-relaxed">
+                            {{ product.description }}
+                        </p>
+                    </div>  
+                
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-4xl font-bold text-blue-600">
+                                &#36;{{ product.price }}
+                            </span>
+                        </div>
+                    
+                        <div class="flex space-x-4">
+                            <button 
+                                (click)="addToCart(product)"
+                                [disabled]="!product.inStock"
+                                [class]="product.inStock 
+                                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'"
+                                class="flex-1 py-3 px-6 rounded-lg font-medium transition-colors duration-200">
+                                    {{ product.inStock ? 'Add to Cart' : 'Out of Stock' }}
+                            </button>
+                          
+                            <button 
+                                (click)="addToCartAndGoToCart(product)"
+                                [disabled]="!product.inStock"
+                                [class]="product.inStock 
+                                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'"
+                                class="flex-1 py-3 px-6 rounded-lg font-medium transition-colors duration-200">
+                                    {{ product.inStock ? 'Buy Now' : 'Unavailable' }}
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <!-- } @else { -->
+        <div *ngIf="!(product$ | async)" class="text-center py-12">
+            <p class="text-gray-500 text-lg">Product not found.</p>
+        </div>
+    <!-- } -->
+
+</div>
